@@ -1,8 +1,11 @@
-# tiny-chess-01 starter
+# tiny-chess-01 entry
 
-A working entry to fork: `main.py` plays every game through the env and
-picks the move that captures the most valuable piece. It is a template,
-not a contender. Replace its one-line choice with a real search.
+`main.py` is a complete chess engine in 4,087 bytes: negamax alpha-beta
+search with quiescence, a transposition table, null-move pruning and
+late-move reductions, driven by a fixed 50,000-node budget — never a
+clock — so every game replays move for move. It plays each game through
+the env's HTTP protocol and was measured locally against the kit's
+practice gauntlet (see "Local measurement" below).
 
 ## The size rule
 
@@ -28,3 +31,15 @@ kit, unpack it, and from inside it run:
 It plays one practice trial against the house engines, replays it, and
 prints the Elo the scorer gives it. Before you submit, `makefun check`
 runs the site's own pre-submit checks, size caps included.
+
+## Local measurement
+
+This build machine has no Docker, so the official grade-local sandbox
+cannot run here. The entry was instead measured with the kit's own env
+server and the official Elo anchors and formula: three practice trials
+scored 3.0, 4.0 and 2.0 points of 6 (local estimates of Elo 1279, 1451
+and 1099), and an 8-rung gauntlet in the final's format scored 3.0 of 8
+(Elo about 1253), above the 1154 eligibility floor. These are local
+estimates, not official ratings. Move generation is verified by perft
+(15/15 positions), and the packed `main.py` is verified move-identical
+to its readable source.
